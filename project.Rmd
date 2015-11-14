@@ -1,0 +1,23 @@
+---
+title: "Practical Machine Learning - Peer Assignment"
+author: "Fabrice Tereszkiewciz"
+date: "14 Nov 2015"
+output: html_document
+---
+
+## Data
+
+```{r load_data, cache=TRUE}
+if (!file.exists("./data/pml-training.csv")) {
+    download.file("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv", 
+        "./data/pml-training.csv", method='curl')
+}
+if (!file.exists("./data/pml-testing.csv")) {
+    download.file("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv", 
+        "./data/pml-testing.csv", method='curl')
+}
+
+df_train <- read.csv('./data/pml-training.csv')
+df_test <- read.csv('./data/pml-testing.csv')
+```
+
