@@ -1,1 +1,4 @@
 data/*.csv
+.RData
+.Rhistory
+project_cache
