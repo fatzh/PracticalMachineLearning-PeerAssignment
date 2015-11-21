@@ -17,7 +17,7 @@ registerDoMC(cores=detectCores())
 
 ## Introduction
 
-Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, our goal is to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways (exercise class). We will build a model to predict the exercise class based on the data from the accelerometers.
+Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement ??? a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, our goal is to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways (exercise class). We will build a model to predict the exercise class based on the data from the accelerometers.
 
 ## Data
 
@@ -85,7 +85,7 @@ training <- df_train[inTrain, ]
 testing <- df_train[-inTrain,]
 ```
 
-We can now train a random forest model, using a 3-fold cross validation to determine the best parameters.
+We can now train a random forest model, using a 10-fold cross validation to determine the best parameters.
 
 ```{r train_model, cache=TRUE, cache.lazy=FALSE}
 myTrainControl <- trainControl(method="cv", number=3)
@@ -98,7 +98,7 @@ The final model:
 modFit$finalModel
 ```
 
-We can see that some observations has been missclassified, the error rate of the model using cross validation is 0.72%, meaning an accuracy of more than 99%. This is really good and we can think that our model may be overfitting the training data.
+We can see that some observations has been missclassified, the accuracy of the model using cross validation is `r round(confusionMatrix(table(modFit$finalModel$predicted, modFit$finalModel$y))$overall[1] * 100, 2)`%. This is really good and we can think that our model may be overfitting the training data.
 
 To estimate more realistically the out-of-sample error of our model, we can now use the testing set that we defined earlier. Let's predict the classes of the testing observations and compare to their real values.
 
@@ -107,7 +107,7 @@ pred <- predict(modFit, testing)
 confusionMatrix(table(pred, testing$classe))
 ```
 
-We can see some missclassification as well on the testing set. The estimated accuracy is 99.32% which is very good. We can confidently use this model for the prediction of the remaining data.
+We can see some missclassification as well on the testing set. The estimated accuracy is `r round(confusionMatrix(table(pred, testing$classe))$overall[1] * 100, 2)`% which is very good. We can confidently use this model for the prediction of the remaining data.
 
 ## Credits
 
